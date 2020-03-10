@@ -1,12 +1,12 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+
 
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-	Date date = new Date();
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 	
 	private String userName;
@@ -14,9 +14,8 @@ public class User implements Serializable {
 	private String userId;
 	private String userPostCode;
 	private String userAddress;
-	private int userGender;
-	private Date userBirthDate;
-	private Date registerDate = date;
+	private String userGender;
+	private Timestamp userBirthDate;
 	
 	public User() {
 	}
@@ -26,8 +25,9 @@ public class User implements Serializable {
 		this.pass = pass;
 	}
 	
-	public User(String userName, String pass, String userId, String userPostCode, 
-			String userAddress, int userGender, Date userBirthDate, Date registerDate) {
+	public User(String userId, String userName, String pass, String userPostCode, 
+			String userAddress, String userGender, Timestamp userBirthDate) {
+		
 		this.userName = userName;
 		this.pass = pass;
 		this.userId = userId;
@@ -35,7 +35,7 @@ public class User implements Serializable {
 		this.userAddress = userAddress;
 		this.userGender = userGender;
 		this.userBirthDate = userBirthDate;
-		this.registerDate = registerDate;
+		
 	}
 	
 	public String getUserName() {
@@ -77,28 +77,20 @@ public class User implements Serializable {
 		this.userAddress = userAddress;
 	}
 
-	public int getUserGender() {
+	public String getUserGender() {
 		return userGender;
 	}
 
-	public void setUserGender(int userGender) {
+	public void setUserGender(String userGender) {
 		this.userGender = userGender;
 	}
 
-	public Date getUserBirthDate() {
+	public Timestamp getUserBirthDate() {
 		return userBirthDate;
 	}
 
-	public void setUserBirthDate(Date userBirthDate) {
+	public void setUserBirthDate(Timestamp userBirthDate) {
 		this.userBirthDate = userBirthDate;
 	}
 
-	public Date getRegisterDate() {
-		return registerDate;
-	}
-
-	public void setRegisterDate(Date registerDate) {
-		this.registerDate = registerDate;
-	}
-	
 }

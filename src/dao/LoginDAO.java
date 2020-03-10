@@ -12,22 +12,20 @@ import model.User;
 
 public class LoginDAO {
 	private final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
-	private final String JDBC_URL =	 "jdbc:mysql://localhost:3306/mydb";
+	private final String JDBC_URL = "jdbc:mysql://localhost:3306/mydb";
 	private final String DB_USER = "root";
 	private final String DB_PASS = "Market00";
-	
+
 	public List<User> findUsers(String userId, String password) {
 		Connection conn = null;
 		List<User> userList = new ArrayList<User>();
 		try {
 			Class.forName(DRIVER_NAME);
 			conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
-			
+
 			// SELECT文の準備
-			String sql =
-					"SELECT USER_ID ,USER_PASSWORD FROM USER "
-					+ "WHERE USER_ID = ? AND USER_PASSWORD = ?;";
-			
+			String sql = "SELECT USER_ID ,USER_PASSWORD FROM USER " + "WHERE USER_ID = ? AND USER_PASSWORD = ?;";
+
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, userId);
 			pStmt.setString(2, password);

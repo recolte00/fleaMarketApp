@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="model.User" %>
 <%
-// セッションスコープからユーザー情報を取得
+// セッションスコープからユーザ情報を取得
 User loginUser = (User) session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
@@ -19,7 +19,7 @@ User loginUser = (User) session.getAttribute("loginUser");
 <a href="/fleaMarketApp/Goods">Look for Goods</a>
 <% } else { %>
 <p>Login is failed</p>
-<a href="/fleaMarketApp/ToLoginPage">to the Login Page</a>
+<a href="/fleaMarketApp/ToLoginPage">Try Again</a>
 <% } %>
 </body>
 </html>

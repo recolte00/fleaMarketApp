@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,6 +21,7 @@ import model.User;
 public class RegisterUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException{
 		
@@ -54,9 +56,12 @@ public class RegisterUser extends HttpServlet {
 				request.getRequestDispatcher(forwardPath);
 		dispatcher.forward(request, response);
 	}
-	
-	protected void dopost(HttpServletRequest request, HttpServletResponse response) 
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		throws ServletException, IOException{
+		
+		final String MALE = "1";
+		final String FEMALE = "2";
 		
 		//リクエストパラメーターの取得
 		request.setCharacterEncoding("UTF-8");
@@ -65,27 +70,32 @@ public class RegisterUser extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String userPostCode = request.getParameter("userPostCode");
 		String userAddress = request.getParameter("userAddress");
-		String sUserGender = request.getParameter("sUserGender");
-		int userGender = Integer.parseInt(sUserGender);
+		String userGender = request.getParameter("userGender");
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		if(MALE.equals(userGender)) {
+			userGender = "Male";
+		} else if(FEMALE.equals(userGender)) {
+			userGender = "Female";
+		} else {
+			userGender = "Others";
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		sdf.setLenient(false);
-		Date nowDate = new Date();
-		String strDate = sdf.format(nowDate);
-		Date userBirthDate = null;
-		Date registerDate = null;
-		String sUserBirthDate = request.getParameter("sUserBirthDate");
+		String sUserBirthDate = request.getParameter("userBirthDate");
+		Timestamp userBirthDate = null;
+		Date date = null;
 		
 		try {
-			userBirthDate = sdf.parse(sUserBirthDate);
-			registerDate = sdf.parse(strDate);
+			date = sdf.parse(sUserBirthDate);
+			userBirthDate = new Timestamp(date.getTime());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
 		//登録するユーザの情報を設定
-		User registerUser = new User(name, pass, userId, userPostCode,
-				userAddress, userGender, userBirthDate, registerDate);
+		User registerUser = new User(userId, name, pass, userPostCode,
+				userAddress, userGender, userBirthDate);
 		//セッションスコープに登録ユーザを保存
 		HttpSession session = request.getSession();
 		session.setAttribute("registerUser", registerUser);

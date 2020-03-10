@@ -47,6 +47,6 @@ public class Login extends HttpServlet {
 		RequestDispatcher dispatcher =
 				request.getRequestDispatcher
 				("/WEB-INF/jsp/loginResult.jsp");
-		dispatcher.forward(request, response);
+				dispatcher.forward(request, response);
 	}
 }

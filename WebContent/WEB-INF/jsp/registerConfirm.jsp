@@ -11,15 +11,18 @@ User registerUser = (User) session.getAttribute("registerUser");
 <title>User Registration</title>
 </head>
 <body>
-<p>Register this User below
+<p>Use this details below?
 </p>
 <p>
-ID:<%= registerUser.getUserId() %><br>
-Name:<%= registerUser.getUserName() %><br>
-Password:<% registerUser.getPass(); %><br>
+ID:<%=registerUser.getUserId()%><br>
+Name:<%=registerUser.getUserName()%><br>
+Password:<%=registerUser.getPass()%><br>
+PostCode:<%=registerUser.getUserPostCode()%><br>
+Address:<%=registerUser.getUserAddress()%><br>
+Gender:<%=registerUser.getUserGender()%>
 
 </p>
-<a href="/fleaMarketApp/RegisterUser">戻る</a>
-<a href="/fleaMarketApp/RegisterUser?action=done">登録</a>
+<a href="/fleaMarketApp/RegisterUser">Back</a>
+<a href="/fleaMarketApp/RegisterUser?action=done">Confirm</a>
 </body>
 </html>

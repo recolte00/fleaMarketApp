@@ -8,6 +8,6 @@
 </head>
 <body>
 <p>Registration Succeeded</p>
-<a href="/fleaMarketApp/RegisterUser">back</a>
+<a href="/fleaMarketApp/ToLoginPage">LoginPage</a>
 </body>
 </html>
