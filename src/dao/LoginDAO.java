@@ -41,10 +41,8 @@ public class LoginDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			return null;
 		} finally {
 			// データベース切断
 			if (conn != null) {
@@ -52,7 +50,6 @@ public class LoginDAO {
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
-					return null;
 				}
 			}
 		}

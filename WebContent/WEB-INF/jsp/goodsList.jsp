@@ -47,6 +47,7 @@ List<Goods> goodsList = (List<Goods>) session.getAttribute("goodsList");
 			</tr>
 		</c:forEach>
 	</table>
+	<p><input type="button" value="to a Goods Registration Page" onclick="location.href='/fleaMarketApp/ToGoodsRegi'"></p>
 	<p><a href="/fleaMarketApp/Logout">Log out</a></p>
 </form>
 </body>

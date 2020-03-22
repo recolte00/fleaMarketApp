@@ -32,7 +32,7 @@ public class ToGoodsList extends HttpServlet {
 			//GoodsListインスタンス（グッズ情報）の取得
 			List<Goods> goodsList = dao.findGoods();
 			//セッションスコープに商品リストを保存
-			HttpSession session = request.getSession();
+			HttpSession session = request.getSession(false);
 			session.setAttribute("goodsList", goodsList);
 			
 		RequestDispatcher dispatcher = 

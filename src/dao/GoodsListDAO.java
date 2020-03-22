@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -77,4 +78,54 @@ public class GoodsListDAO {
 		}
 		return goodsList;
 	}
+	public List<Goods> checkGoods(int goodsNo, int userNo){
+		Connection conn = null;
+		List<Goods> goodsList = new ArrayList<Goods>();
+		try {
+			Class.forName(DRIVER_NAME);
+			conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+			
+			//SELECT文の準備
+			String sql =
+					"SELECT "
+					+ "GOODS_NO, "
+					+ "USER_NO "
+					+"FROM GOODS "
+					+ "WHERE GOODS_NO = ? "
+					+ "AND USER_NO = ?;";
+			
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, goodsNo);
+			pStmt.setInt(2, userNo);
+			//SELECTを実行
+			ResultSet rs = pStmt.executeQuery();
+			//SELECT文の結果をArrayListに格納
+			while (rs.next()) {
+				int gNo = rs.getInt("GOODS_NO");
+				int uNo = rs.getInt("USER_NO");
+				Goods goods = new Goods(gNo, uNo);
+				goodsList.add(goods);
+			}
+			rs.close();
+			pStmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			//データベース切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+		return goodsList;
+	}
+
 }

@@ -17,6 +17,10 @@ public class GoodsDetail implements Serializable {
 	private Timestamp registerDate;
 	private String userId;
 	
+	public GoodsDetail(String userId) {
+		this.userId = userId;
+	}
+	
 	public GoodsDetail(int goodsNo, int userNo, String goodsName, String goodsImage,
 			int price, int quantity, String introduction, int soldoutFlag, Timestamp registerDate, String userId) {
 		

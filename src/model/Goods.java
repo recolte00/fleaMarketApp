@@ -24,7 +24,7 @@ public class Goods implements Serializable {
 		this.goodsNo = goodsNo;
 		this.userNo = userNo;
 	}
-	
+		
 	public Goods(int goodsNo, int userNo, String goodsName, String goodsImage,
 			int price, int quantity, String introduction, int soldoutFlag, Timestamp registerDate) {
 		

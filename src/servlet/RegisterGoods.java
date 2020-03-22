@@ -11,56 +11,54 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import dao.GoodsDetailDAO;
-import model.GoodsDetail;
+import dao.GoodsNoDAO;
+import model.Goods;
 
-@WebServlet("/GoodsDetail")
-public class ToGoodsDetail extends HttpServlet {
-	
+@WebServlet("/RegisterGoods")
+public class RegisterGoods extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
+		this.doPost(request, response);
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		//リクエストパラメータの取得
-		int goodsNo = 0;
-		int userNo = 0;
-		int price = 0;
-		int quantity = 0;
-		int soldoutFlag = 0;
+		
 		String goodsName = request.getParameter("goodsName");
 		String goodsImage = request.getParameter("goodsImage");
 		String introduction = request.getParameter("introduction");
+		
+		int userNo = -1;
+		int goodsNo = -1;
+		int price = -1;
+		int quantity = -1;
+		int soldoutFlag = 0;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		sdf.setLenient(false);
-		String sRegisterDate = request.getParameter("registerDate");
+		// 現在日時をセット
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		String sRegisterDate = sdf.format(timestamp);
 		Timestamp registerDate = null;
 		try {
-			goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
 			userNo = Integer.parseInt(request.getParameter("userNo"));
 			price = Integer.parseInt(request.getParameter("price"));
 			quantity = Integer.parseInt(request.getParameter("quantity"));
-			soldoutFlag = Integer.parseInt(request.getParameter("soldoutFlag"));
 			registerDate = new Timestamp(sdf.parse(sRegisterDate).getTime());
-		} catch (ParseException e){
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		//DAOインスタンス生成
-		GoodsDetailDAO dao = new GoodsDetailDAO();
-		String userId = dao.findGoodsDetail(userNo, goodsNo);		
-		//表示する商品詳細を設定
-		GoodsDetail goodsDetail = new GoodsDetail(
-				goodsNo, userNo, goodsName, goodsImage, price, 
-				quantity, introduction, soldoutFlag, registerDate, userId);
-		//セッションスコープに商品詳細を保存
-		HttpSession session = request.getSession();
-		session.setAttribute("goodsDetail", goodsDetail);
-		
-		//ページ遷移
-		RequestDispatcher dispatcher = 
-				request.getRequestDispatcher("/WEB-INF/jsp/goodsDetail.jsp");
+		GoodsNoDAO dao = new GoodsNoDAO();
+		goodsNo = dao.findGoodsNo(userNo);
+			
+		Goods goods = new Goods(goodsNo, userNo, goodsName, goodsImage, price, quantity, introduction, soldoutFlag, registerDate);
+		request.setAttribute("goods", goods);
+		//フォワード
+		RequestDispatcher dispatcher =
+			request.getRequestDispatcher("/WEB-INF/jsp/registerGoodsConfirm.jsp");
 		dispatcher.forward(request, response);
-		}
+	}
 }
