@@ -22,7 +22,7 @@ List<Goods> goodsList = (List<Goods>) session.getAttribute("goodsList");
 				<td><c:out value="${val.goodsNo}"/><td/>
 				<td><c:out value="${val.userNo}"/></td>
 				<td><c:out value="${val.goodsName}"/></td>
-				<td><c:out value="${val.goodsImage}"/></td>
+				<td><img src=<c:out value="${val.goodsImage}"/> width="200" height="300"></td>
 				<td><c:out value="${val.price}"/></td>
 				<td><c:out value="${val.quantity}"/></td>
 				<td><c:out value="${val.introduction}"/></td>

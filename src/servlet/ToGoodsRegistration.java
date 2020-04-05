@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import dao.UserNoDAO;
 import model.User;
 
+
 @WebServlet("/ToGoodsRegi")
 public class ToGoodsRegistration extends HttpServlet {
 private static final long serialVersionUID = 1L;

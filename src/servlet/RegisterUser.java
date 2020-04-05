@@ -1,6 +1,9 @@
 package servlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -71,6 +74,24 @@ public class RegisterUser extends HttpServlet {
 		String userPostCode = request.getParameter("userPostCode");
 		String userAddress = request.getParameter("userAddress");
 		String userGender = request.getParameter("userGender");
+		
+		/*
+		//郵便番号入力
+		String urlString = "url" + "?zipcode=" + userAddress;
+		//URL作って接続
+		java.net.URL url = new java.net.URL(urlString);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.connect();
+		//JSONデータの読み込み
+		BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		String tmp;
+		while ((tmp = in.readLine()) != null) {
+			
+		}
+		//終了処理
+		in.close();
+		conn.disconnect();
+		*/
 		
 		if(MALE.equals(userGender)) {
 			userGender = "Male";

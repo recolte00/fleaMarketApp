@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="model.Goods" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% 
 Goods goods = (Goods) request.getAttribute("goods");
+String webRealPath = application.getRealPath("uploaded");
 %>  
 <!DOCTYPE html>
 <html>
@@ -31,7 +33,13 @@ Goods goods = (Goods) request.getAttribute("goods");
 	</tr>
 	<tr>
 		<td>
-			<input type="text" name="goodsImage" value=<%=goods.getGoodsImage()%>>
+			<div class="msg"><c:if test="${msg != null}"><%=request.getAttribute("msg") %></c:if></div>
+			<!--<p><%=goods.getGoodsImage()%></p>
+			<p><%=webRealPath %></p>
+			<img src=<%=goods.getGoodsImage()%>><br>-->
+			<img src="http://localhost:8080/fleaMarketApp/uploaded/<%=request.getAttribute("imageName") %>" width="200" height="300">
+			<img src="http://localhost:8080/fleaMarketApp/WEB-INF/uploaded/<%=request.getAttribute("imageName") %>" width="200" height="300">
+			<input type="hidden" name="goodsImage" value=<%=goods.getGoodsImage()%>>
 		</td>
 	</tr>
 	<tr>
