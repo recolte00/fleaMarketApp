@@ -1,0 +1,11 @@
+version: "3"
+services:
+        mysql:
+                build: .
+
+                image: market_mysql #イメージの名前
+
+                volumes:
+                        - ./data:/var/lib/mysql
+                environment:
+                        - MYSQL_ROOT_PASSWORD=1234 #コンテナ内のMySQLを起動する際のパスワードを設定
